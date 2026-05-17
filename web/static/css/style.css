@@ -807,12 +807,12 @@ input, select, textarea {font-family: var(--f);}
 
 .profile-menu__dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 5px);
   right: 0;
-  width: 220px;
-  background: var(--c-surface);
+  width: 250px;
+  background: #feffff;
   border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
+  border-radius: 5px;
   box-shadow: var(--shadow-lg);
   padding: 8px;
   display: none;
@@ -836,13 +836,13 @@ input, select, textarea {font-family: var(--f);}
 }
 
 .profile-menu__user-name {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--c-ink);
 }
 
 .profile-menu__user-email {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--c-ink-faint);
   margin-top: 2px;
 }
@@ -853,7 +853,7 @@ input, select, textarea {font-family: var(--f);}
   gap: 10px;
   padding: 9px 12px;
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--c-ink-2);
   cursor: pointer;
