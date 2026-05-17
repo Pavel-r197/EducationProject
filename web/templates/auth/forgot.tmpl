@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Восстановление пароля — NetAdmin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth">
+
+  <!-- Left decorative panel -->
+  <div class="auth__panel">
+    <div class="auth__panel-logo">
+      <div class="auth__panel-logo-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <span class="auth__panel-logo-name">NetAdmin</span>
+    </div>
+
+    <div class="auth__panel-body">
+      <h2 class="auth__panel-title">
+        Безопасность —<br>
+        наш приоритет
+      </h2>
+      <p class="auth__panel-desc">
+        Введите свой e-mail, и мы отправим ссылку для сброса пароля.
+        Ссылка действительна 30 минут.
+      </p>
+    </div>
+
+    <div class="auth__panel-dots">
+      <div class="auth__panel-dot"></div>
+      <div class="auth__panel-dot auth__panel-dot--active"></div>
+      <div class="auth__panel-dot"></div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="auth__form-wrap">
+    <div class="auth__box">
+
+      <!-- Step 1: Enter email -->
+      <div id="step-email">
+        <a href="../login.html" class="auth__back">
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Вернуться ко входу
+        </a>
+
+        <h1 class="auth__title">Забыли пароль?</h1>
+        <p class="auth__subtitle">
+          Укажите e-mail вашей учётной записи — мы вышлем инструкцию по восстановлению.
+        </p>
+
+        <div class="field">
+          <label class="field__label" for="recovery-email">E-mail</label>
+          <div class="field__input-wrap">
+            <span class="field__icon">
+              <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </span>
+            <input
+              class="field__input"
+              type="email"
+              id="recovery-email"
+              placeholder="admin@company.ru"
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--full" onclick="showSuccess()">
+          Отправить инструкцию
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <p class="auth__hint">
+          Вспомнили пароль? <a href="../login.html">Войти</a>
+        </p>
+      </div>
+
+      <!-- Step 2: Success state -->
+      <div id="step-success" style="display:none;">
+        <div class="auth__success">
+          <div class="auth__success-icon">✉️</div>
+          <h1 class="auth__title" style="text-align:center;">Письмо отправлено</h1>
+          <p class="auth__subtitle" style="text-align:center;max-width:320px;margin:0 auto 28px;">
+            Мы отправили инструкцию на <strong id="sent-to" style="color:var(--c-ink)"></strong>.
+            Если письмо не пришло, проверьте папку «Спам».
+          </p>
+
+          <div style="
+            background: var(--c-surface-2);
+            border: 1px solid var(--c-border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--c-ink-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            text-align: left;
+          ">
+            <strong style="color:var(--c-ink);display:block;margin-bottom:4px;">Что делать дальше:</strong>
+            1. Откройте письмо от NetAdmin<br>
+            2. Нажмите кнопку «Сбросить пароль»<br>
+            3. Придумайте новый надёжный пароль
+          </div>
+
+          <button class="btn btn--primary btn--full" onclick="location.href='../login.html'">
+            Вернуться ко входу
+          </button>
+
+          <p class="auth__hint">
+            Не получили письмо?
+            <a href="#" onclick="location.reload();return false;">Отправить повторно</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showSuccess() {
+    const email = document.getElementById('recovery-email').value || 'admin@company.ru';
+    document.getElementById('sent-to').textContent = email;
+    document.getElementById('step-email').style.display = 'none';
+    document.getElementById('step-success').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>

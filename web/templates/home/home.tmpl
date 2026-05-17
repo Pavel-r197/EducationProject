@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdminPanel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <span class="sidebar__brand-name">AdminPanel</span>
+    </div>
+
+    <nav class="sidebar__nav">
+
+      <div class="sidebar__section">
+        <div class="sidebar__section-label">Обзор</div>
+        <a href="home.html" class="sidebar__link sidebar__link--active">
+          <svg viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="3" y="15" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/></svg>
+          Дашборд
+        </a>
+      </div>
+
+      <div class="sidebar__section">
+        <div class="sidebar__section-label">Раздел 1</div>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Пункт меню 1
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+          Пункт меню 2
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Пункт меню 3
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          Пункт меню 4
+        </a>
+      </div>
+
+      <div class="sidebar__section">
+        <div class="sidebar__section-label">Раздел 2</div>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><rect width="5" height="5" x="16" y="16" rx="1"/><path d="M5.5 8v2.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8M10 12.5V16"/></svg>
+          Пункт меню 5
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+          Пункт меню 6
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"/><path d="m8 16 4 4 4-4M12 12v8"/></svg>
+          Пункт меню 7
+        </a>
+      </div>
+
+      <div class="sidebar__section">
+        <div class="sidebar__section-label">Администрирование</div>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Пользователи
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          Настройки
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          Журнал событий
+        </a>
+      </div>
+
+    </nav>
+
+    <div class="sidebar__footer">
+
+    </div>
+
+  </aside>
+
+  <!-- ===================================================
+       MAIN
+       =================================================== -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <!-- Hamburger (mobile) -->
+      <button class="topbar__icon-btn" id="menu-toggle" title="Меню" style="display:none;">
+        <svg viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+
+      <!-- Search -->
+      <div class="topbar__search">
+        <span class="topbar__search-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <input
+          class="topbar__search-input"
+          type="search"
+          placeholder="Введите текст для поиска"
+        >
+      </div>
+
+      <div class="topbar__right">
+
+        <!-- Notifications -->
+        <button class="topbar__icon-btn" title="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="topbar__badge"></span>
+        </button>
+
+        <div class="topbar__divider"></div>
+
+        <!-- Profile dropdown -->
+        <div class="profile-menu" id="profileMenu">
+          <button
+            class="profile-menu__trigger"
+            id="profileTrigger"
+            onclick="toggleProfile()"
+          >
+            <div class="profile-menu__avatar">АВ</div>
+            <span class="profile-menu__name">Админов Администратор</span>
+            <svg class="profile-menu__chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+
+          <div class="profile-menu__dropdown">
+            <div class="profile-menu__user">
+              <div class="profile-menu__user-name">Админов Администратор</div>
+              <div class="profile-menu__user-email">admin@company.ru</div>
+            </div>
+            <a href="#" class="profile-menu__item">
+              <svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Редактировать профиль
+            </a>
+            <a href="#" class="profile-menu__item">
+              <svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Сменить пароль
+            </a>
+            <a href="#" class="profile-menu__item">
+              <svg viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              Настройки
+            </a>
+            <a href="../login.html" class="profile-menu__item profile-menu__item--danger">
+              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              Выйти из системы
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div class="page">
+
+      <!-- Page header -->
+      <div class="page__head">
+        <div>
+          <h1 class="page__title">Устройства</h1>
+          <div class="page__breadcrumb">
+            <a href="#">Главная</a>
+            <span class="page__breadcrumb-sep">/</span>
+            <span>Устройства</span>
+          </div>
+        </div>
+        <div class="page__actions">
+          <button class="btn btn--ghost btn--sm">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            Экспорт
+          </button>
+          <button class="btn btn--primary btn--sm">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить устройство
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--blue">🖥️</div>
+          <div>
+            <div class="stat-card__num">248</div>
+            <div class="stat-card__label">Всего устройств</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--green">✅</div>
+          <div>
+            <div class="stat-card__num">0</div>
+            <div class="stat-card__label">Текст</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--orange">⚠️</div>
+          <div>
+            <div class="stat-card__num">0</div>
+            <div class="stat-card__label">Текст</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--red">🔴</div>
+          <div>
+            <div class="stat-card__num">0</div>
+            <div class="stat-card__label">Текст</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table card -->
+      <div class="table-card">
+
+        <div class="table-card__header">
+          <div>
+            <div class="table-card__title">Реестр устройств</div>
+          </div>
+          <div class="table-card__tools">
+            <select class="select">
+              <option>Все типы</option>
+              <option>Сервер</option>
+              <option>Маршрутизатор</option>
+              <option>Коммутатор</option>
+              <option>Камера</option>
+            </select>
+            <select class="select">
+              <option>Все локации</option>
+              <option>ЦОД Москва</option>
+              <option>Офис СПб</option>
+              <option>Склад</option>
+            </select>
+            <button class="btn btn--ghost btn--sm">
+              <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              Фильтр
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead class="table__head">
+              <tr>
+                <th class="table__th table__th--check">
+                  <input type="checkbox" class="table__checkbox">
+                </th>
+                <th class="table__th table__th--sort">
+                  <div class="table__th-inner">
+                    ID устройства
+                    <svg class="table__sort-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                  </div>
+                </th>
+                <th class="table__th">Тип устройства</th>
+                <th class="table__th table__th--sort">
+                  <div class="table__th-inner">
+                    Место хранения
+                    <svg class="table__sort-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                  </div>
+                </th>
+                <th class="table__th table__th--sort">
+                  <div class="table__th-inner">
+                    Дата создания
+                    <svg class="table__sort-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                  </div>
+                </th>
+                <th class="table__th">Дата обновления</th>
+                <th class="table__th">IP-адрес</th>
+                <th class="table__th">Ответственный</th>
+                <th class="table__th"></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">841</td>
+                <td class="table__td"><span class="badge badge--server">Сервер</span></td>
+                <td class="table__td">ЦОД Москва · Стойка A-12</td>
+                <td class="table__td">14.02.2023</td>
+                <td class="table__td table__td--muted">12.03.2025, 09:41</td>
+                <td class="table__td table__td--ip">10.0.1.14</td>
+                <td class="table__td">Петров И.В.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр">
+                      <svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="row-actions__btn" title="Редактировать">
+                      <svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                    </button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить">
+                      <svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">756</td>
+                <td class="table__td"><span class="badge badge--router">Маршрутизатор</span></td>
+                <td class="table__td">Офис СПб · Серверная</td>
+                <td class="table__td">07.06.2022</td>
+                <td class="table__td table__td--muted">11.03.2025, 17:22</td>
+                <td class="table__td table__td--ip">192.168.0.1</td>
+                <td class="table__td">Смирнова А.К.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">703</td>
+                <td class="table__td"><span class="badge badge--switch">Коммутатор</span></td>
+                <td class="table__td">ЦОД Москва · Стойка B-04</td>
+                <td class="table__td">23.11.2021</td>
+                <td class="table__td table__td--muted">10.03.2025, 14:05</td>
+                <td class="table__td table__td--ip">10.0.2.250</td>
+                <td class="table__td">Орлов Д.С.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">688</td>
+                <td class="table__td"><span class="badge badge--camera">IP-камера</span></td>
+                <td class="table__td">Склад · Зона В2</td>
+                <td class="table__td">15.03.2022</td>
+                <td class="table__td table__td--muted">09.03.2025, 08:30</td>
+                <td class="table__td table__td--ip">172.16.10.45</td>
+                <td class="table__td">Козлова Е.П.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">645</td>
+                <td class="table__td"><span class="badge badge--workst">Рабочая станция</span></td>
+                <td class="table__td">Офис Москва · Этаж 3</td>
+                <td class="table__td">02.08.2023</td>
+                <td class="table__td table__td--muted">13.03.2025, 11:15</td>
+                <td class="table__td table__td--ip">192.168.1.104</td>
+                <td class="table__td">Новиков А.В.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">612</td>
+                <td class="table__td"><span class="badge badge--sensor">Датчик IoT</span></td>
+                <td class="table__td">Склад · Зона А1</td>
+                <td class="table__td">19.01.2024</td>
+                <td class="table__td table__td--muted">08.03.2025, 23:59</td>
+                <td class="table__td table__td--ip">10.10.5.88</td>
+                <td class="table__td">Попова М.С.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">589</td>
+                <td class="table__td"><span class="badge badge--printer">Принтер</span></td>
+                <td class="table__td">Офис Москва · Этаж 1</td>
+                <td class="table__td">30.04.2021</td>
+                <td class="table__td table__td--muted">07.03.2025, 16:44</td>
+                <td class="table__td table__td--ip">192.168.1.201</td>
+                <td class="table__td">Захаров В.Н.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">543</td>
+                <td class="table__td"><span class="badge badge--storage">Хранилище NAS</span></td>
+                <td class="table__td">ЦОД Москва · Стойка C-08</td>
+                <td class="table__td">11.09.2020</td>
+                <td class="table__td table__td--muted">06.03.2025, 04:17</td>
+                <td class="table__td table__td--ip">10.0.3.100</td>
+                <td class="table__td">Лебедев К.О.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">518</td>
+                <td class="table__td"><span class="badge badge--router">Маршрутизатор</span></td>
+                <td class="table__td">Офис СПб · Коридор 2</td>
+                <td class="table__td">28.07.2022</td>
+                <td class="table__td table__td--muted">05.03.2025, 19:08</td>
+                <td class="table__td table__td--ip">192.168.10.1</td>
+                <td class="table__td">Смирнова А.К.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table__tr">
+                <td class="table__td"><input type="checkbox" class="table__checkbox"></td>
+                <td class="table__td table__td--id">477</td>
+                <td class="table__td"><span class="badge badge--server">Сервер</span></td>
+                <td class="table__td">ЦОД Москва · Стойка A-07</td>
+                <td class="table__td">03.12.2019</td>
+                <td class="table__td table__td--muted">04.03.2025, 07:53</td>
+                <td class="table__td table__td--ip">10.0.1.7</td>
+                <td class="table__td">Петров И.В.</td>
+                <td class="table__td">
+                  <div class="row-actions">
+                    <button class="row-actions__btn" title="Просмотр"><svg viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button class="row-actions__btn" title="Редактировать"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></button>
+                    <button class="row-actions__btn row-actions__btn--danger" title="Удалить"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination">
+          <div class="pagination__info">Записи 1–10 из 248</div>
+          <div class="pagination__pages">
+            <button class="pagination__btn pagination__btn--nav" disabled title="Предыдущая">
+              <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="pagination__btn pagination__btn--active">1</button>
+            <button class="pagination__btn">2</button>
+            <button class="pagination__btn">3</button>
+            <button class="pagination__btn">4</button>
+            <button class="pagination__btn">5</button>
+            <span class="pagination__dots">…</span>
+            <button class="pagination__btn">25</button>
+            <button class="pagination__btn pagination__btn--nav" title="Следующая">
+              <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <!-- / table-card -->
+
+    </div>
+    <!-- / page -->
+
+  </div>
+  <!-- / main -->
+
+</div>
+<!-- / layout -->
+
+<script>
+  /* Profile dropdown toggle */
+  function toggleProfile() {
+    const menu = document.getElementById('profileMenu');
+    menu.classList.toggle('profile-menu--open');
+  }
+
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('profileMenu');
+    if (!menu.contains(e.target)) {
+      menu.classList.remove('profile-menu--open');
+    }
+  });
+
+  /* Pagination */
+  document.querySelectorAll('.pagination__btn:not(.pagination__btn--nav)').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.pagination__btn--active').forEach(b => b.classList.remove('pagination__btn--active'));
+      this.classList.add('pagination__btn--active');
+      const prev = document.querySelector('.pagination__btn--nav:first-of-type');
+      const next = document.querySelector('.pagination__btn--nav:last-of-type');
+      prev.disabled = this.textContent.trim() === '1';
+      next.disabled = this.textContent.trim() === '25';
+    });
+  });
+
+  /* Mobile sidebar */
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  if (window.innerWidth < 960) menuToggle.style.display = 'flex';
+  menuToggle.addEventListener('click', () => sidebar.classList.toggle('sidebar--open'));
+</script>
+
+</body>
+</html>
