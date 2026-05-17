@@ -21,8 +21,9 @@ func NewRouter(t usecase.TaskService, u usecase.UserService) http.Handler {
 	mux.HandleFunc("DELETE /api/task/delete/{id}", taskHandler.Delete)
 
 	// Пользователи
-	mux.HandleFunc("POST /api/register", userHandler.Register)
+	mux.HandleFunc("POST /api/signup", userHandler.SignUp)
 	mux.HandleFunc("POST /api/login", userHandler.Login)
+	mux.HandleFunc("POST /api/logout", userHandler.Logout)
 
 	return mux
 }

@@ -30,7 +30,7 @@ func NewUserHandler(u usecase.UserService) *UserHandler {
 	return &UserHandler{u: u}
 }
 
-func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 	var request registerRequest
 	//TODO: обработать ошибку, воспользоваться res.go
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -62,5 +62,9 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	//
 	//}
 	//return domain.AuthToken{AccessToken: accessToken}, nil
+
+}
+
+func (h *UserHandler) Logout(w http.ResponseWriter, r *http.Request) {
 
 }
