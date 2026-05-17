@@ -6,6 +6,6 @@ import (
 )
 
 type UserService interface {
-	Register(ctx context.Context, input RegisterInput) error
+	SignUp(ctx context.Context, input SignUpInput) error
 	Login(ctx context.Context, input LoginInput) (domain.AuthToken, error)
 }

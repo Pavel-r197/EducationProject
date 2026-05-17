@@ -9,7 +9,7 @@ import (
 )
 
 // TODO: добавить остальные поля
-type registerRequest struct {
+type signUpRequest struct {
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
 	BirthDate time.Time `json:"birth_date,omitempty"` // TODO: загуглить и сделать необязательным полем
@@ -31,14 +31,14 @@ func NewUserHandler(u usecase.UserService) *UserHandler {
 }
 
 func (h *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
-	var request registerRequest
+	var request signUpRequest
 	//TODO: обработать ошибку, воспользоваться res.go
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		res.WriteJSONError(w, http.StatusBadRequest, "Не валидный JSON")
 		return
 	}
-	requestInput := usecase.RegisterInput{FirstName: request.FirstName, LastName: request.LastName, BirthDate: request.BirthDate, Email: request.Email, Password: request.Password}
-	h.u.Register(r.Context(), requestInput) //TODO: обработать возвращаемую ошибку
+	requestInput := usecase.SignUpInput{FirstName: request.FirstName, LastName: request.LastName, BirthDate: request.BirthDate, Email: request.Email, Password: request.Password}
+	h.u.SignUp(r.Context(), requestInput) //TODO: обработать возвращаемую ошибку
 	m := map[string]string{"msg": "Пользователь успешно зарегистрирован"}
 	res.WriteJSONResponse(w, http.StatusCreated, m)
 }

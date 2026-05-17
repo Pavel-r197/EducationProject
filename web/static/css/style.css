@@ -698,9 +698,10 @@ input, select, textarea {font-family: var(--f);}
 }
 
 .topbar__search-input:focus {
-  border-color: var(--c-accent);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(59,110,248,.1);
+  border: 1px solid #e9edf1;
+  background: #e9edf1;
+  color: #656978;
+  border-radius: 5px;
 }
 
 .topbar__search-input::placeholder { color: var(--c-ink-faint); }

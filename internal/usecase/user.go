@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type RegisterInput struct {
+type SignUpInput struct {
 	FirstName string
 	LastName  string
 	BirthDate time.Time
@@ -32,7 +32,7 @@ func NewAuthUseCase(u domain.UserRepository, h domain.PasswordHasher, t domain.T
 	return AuthUseCase{Users: u, hasher: h, token: t}
 }
 
-func (u AuthUseCase) Register(ctx context.Context, input RegisterInput) error {
+func (u AuthUseCase) SignUp(ctx context.Context, input SignUpInput) error {
 	ok := emailValidator(input.Email)
 	if !ok {
 		return domain.ErrInvalidEmail
@@ -75,6 +75,10 @@ func (u AuthUseCase) Login(ctx context.Context, input LoginInput) error {
 	// TODO: сравнить PasswordHash из структуры с input.password
 	return nil
 }
+
+//func (u AuthUseCase) Logout (ctx context.Context) {
+//
+//}
 
 func emailValidator(email string) bool {
 	_, err := mail.ParseAddress(email)
