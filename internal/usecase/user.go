@@ -51,7 +51,7 @@ func (u AuthUseCase) SignUp(ctx context.Context, input SignUpInput) error {
 	if err != nil {
 		return errors.New("Ошибка создания хэш пароля")
 	}
-	var user = domain.User{LastName: lastName, FirstName: firstName, BirthDate: input.BirthDate, PasswordHash: passwordHash}
+	var user = domain.User{FirstName: firstName, LastName: lastName, BirthDate: input.BirthDate, Email: input.Email, PasswordHash: passwordHash}
 	err = u.Users.Create(ctx, &user)
 	if err != nil {
 		return err
@@ -61,19 +61,29 @@ func (u AuthUseCase) SignUp(ctx context.Context, input SignUpInput) error {
 
 //TODO: вернуть токен
 
-func (u AuthUseCase) Login(ctx context.Context, input LoginInput) error {
+func (u AuthUseCase) Login(ctx context.Context, input LoginInput) (domain.AuthToken, error) {
 	ok := emailValidator(input.Email)
 	if !ok {
-		return domain.ErrInvalidEmail
+		return domain.AuthToken{}, domain.ErrInvalidEmail
 	}
-
 	if err := passwordValidator(input.Password); err != nil {
-		return err
+		return domain.AuthToken{}, err
 	}
-	// TODO: по аналогии с register проверить почту, пароль
-	// TODO: воспользоваться методом GetByEmail, если не найдено вернуть ошибку
-	// TODO: сравнить PasswordHash из структуры с input.password
-	return nil
+	// Ищем пользователя в базе по email
+	user, err := u.Users.GetByEmail(ctx, input.Email)
+	if err != nil {
+		return domain.AuthToken{}, err
+	}
+	// Сравниваем хэш из базы с паролем, который пришел с input.Password от пользователя
+	if err := u.hasher.Compare(user.PasswordHash, input.Password); err != nil {
+		return domain.AuthToken{}, err
+	}
+	// Генерируем токен
+	token, err := u.token.GenerateToken(user.Id)
+	if err != nil {
+		return domain.AuthToken{}, err
+	}
+	return token, nil
 }
 
 //func (u AuthUseCase) Logout (ctx context.Context) {

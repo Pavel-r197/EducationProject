@@ -38,16 +38,13 @@ func (h *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	requestInput := usecase.SignUpInput{FirstName: request.FirstName, LastName: request.LastName, BirthDate: request.BirthDate, Email: request.Email, Password: request.Password}
-	h.u.SignUp(r.Context(), requestInput) //TODO: обработать возвращаемую ошибку
+	if err := h.u.SignUp(r.Context(), requestInput); err != nil {
+		res.WriteJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
 	m := map[string]string{"msg": "Пользователь успешно зарегистрирован"}
 	res.WriteJSONResponse(w, http.StatusCreated, m)
 }
-
-//TODO: Сделать Login
-// Создать структуру loginRequest
-// по аналогии с 28-30 строкой получить json и распарсить
-// вызвать метод Login из бизнес логики (поле u структуры UserHandler)
-// вернуть токен, обработать ошибку
 
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var request loginRequest
@@ -55,13 +52,14 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		res.WriteJSONError(w, http.StatusBadRequest, "Не валидный JSON")
 		return
 	}
-	//loginInput := usecase.LoginInput{Email: request.Email, Password: request.Password}
-	//accessToken, err := h.u.Login(r.Context(), loginInput)
-	//if err != nil {
-	//	return domain.AuthToken{}, err
-	//
-	//}
-	//return domain.AuthToken{AccessToken: accessToken}, nil
+	loginInput := usecase.LoginInput{Email: request.Email, Password: request.Password}
+	accessToken, err := h.u.Login(r.Context(), loginInput)
+	if err != nil {
+		res.WriteJSONError(w, http.StatusBadRequest, err.Error())
+		return
+
+	}
+	res.WriteJSONResponse(w, http.StatusOK, accessToken)
 
 }
 

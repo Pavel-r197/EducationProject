@@ -11,4 +11,5 @@ var (
 	ErrEmptyPassword = errors.New("Пароль не может быть пустым")
 	ErrMinPassLength = errors.New("Пароль не может быть меньше 8 символов")
 	ErrMaxPassLength = errors.New("Пароль не может быть больше 20 символов")
+	ErrNonAuthorized = errors.New("Пользователь не авторизован")
 )

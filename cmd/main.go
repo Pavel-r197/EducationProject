@@ -3,11 +3,14 @@ package main
 import (
 	"EducationProject/internal/config"
 	myhttp "EducationProject/internal/delivery/http"
+	"EducationProject/internal/repository/cryptography"
 	"EducationProject/internal/repository/postgres"
 	"EducationProject/internal/usecase"
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 //type MySting string
@@ -45,19 +48,27 @@ func main() {
 	config.AutoMigrate(db)
 	log.Println("Автомиграция выполнена")
 
+	bycryptCost, err := strconv.Atoi(cfg.BYCRYPTCOST)
+	if err != nil {
+		log.Println("Некорректный bycryptCost, используем 10")
+		bycryptCost = 10
+	}
+
 	// Создаем слой репозитория
+	hasher := cryptography.NewHasher(bycryptCost)
+	tokenManager := cryptography.NewJWTManager("dev-secret", 24*time.Hour)
 	taskRepo := postgres.NewTaskRepository(db)
 	userRepo := postgres.NewUserRepository(db)
 
 	// Создаем слой бизнес-логики
 	taskUseCase := usecase.NewTaskUseCase(taskRepo)
-	userUseCase := usecase.NewAuthUseCase(userRepo)
+	userUseCase := usecase.NewAuthUseCase(userRepo, hasher, tokenManager)
 
 	// Создаем транспортный слой
 	mux := myhttp.NewRouter(taskUseCase, userUseCase)
 
 	log.Println("Сервер запущен на порту: " + cfg.SRV.Port)
-	err := http.ListenAndServe(":"+cfg.SRV.Port, mux)
+	err = http.ListenAndServe(":"+cfg.SRV.Port, mux)
 	if err != nil {
 		log.Println(err)
 	}
