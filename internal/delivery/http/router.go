@@ -25,5 +25,5 @@ func NewRouter(t usecase.TaskService, u usecase.UserService) http.Handler {
 	mux.HandleFunc("POST /api/login", userHandler.Login)
 	mux.HandleFunc("POST /api/logout", userHandler.Logout)
 
-	return mux
+	return Chain(mux, Recoverer(), RequestLogger())
 }

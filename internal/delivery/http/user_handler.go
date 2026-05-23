@@ -12,7 +12,7 @@ import (
 type signUpRequest struct {
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
-	BirthDate time.Time `json:"birth_date,omitempty"` // TODO: загуглить и сделать необязательным полем
+	BirthDate time.Time `json:"birth_date,omitempty"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
 }
