@@ -32,12 +32,16 @@ func NewTaskUseCase(n domain.TaskRepository) TaskService {
 }
 
 func (n *TaskUseCase) Create(ctx context.Context, input TaskInput) (domain.Task, error) {
-	// TODO: добавить проверку id пользователя
+	userID, ok := ctx.Value("userID").(int64)
+	if !ok || userID == 0 {
+		return domain.Task{}, errors.New("Неверный userID")
+	}
+
 	if len(input.Title) < 3 || len(input.Description) < 3 {
 		return domain.Task{}, domain.ErrInvalidInput
 		// TO-DO: подключить domain errors.go для вывода ошибок
 	}
-	task := domain.Task{Title: input.Title, Description: input.Description, UserId: 1}
+	task := domain.Task{Title: input.Title, Description: input.Description, UserId: userID}
 	if err := n.Tasks.Create(ctx, &task); err != nil {
 		return domain.Task{}, errors.New("Ошибка создания задачи")
 	}
@@ -47,10 +51,14 @@ func (n *TaskUseCase) Create(ctx context.Context, input TaskInput) (domain.Task,
 }
 
 func (n *TaskUseCase) GetById(ctx context.Context, id int64) (domain.Task, error) {
+	userID, ok := ctx.Value("userID").(int64)
+	if !ok || userID == 0 {
+		return domain.Task{}, errors.New("Неверный userID")
+	}
 	if id < 1 {
 		return domain.Task{}, errors.New("ID не может быть меньше 1")
 	}
-	task, err := n.Tasks.GetById(ctx, id, 1)
+	task, err := n.Tasks.GetById(ctx, id, userID)
 	if err != nil {
 		return domain.Task{}, errors.New("В GetById что то пошло не так")
 	}
@@ -58,11 +66,16 @@ func (n *TaskUseCase) GetById(ctx context.Context, id int64) (domain.Task, error
 }
 
 func (n *TaskUseCase) Update(ctx context.Context, input UpdateTask) error {
+	userID, ok := ctx.Value("userID").(int64)
+	if !ok || userID == 0 {
+		return errors.New("Неверный userID")
+	}
+
 	if len(input.Title) < 3 || len(input.Description) < 3 {
 		return errors.New("Invalid input")
 		// TO-DO: подключить domain errors.go для вывода ошибок
 	}
-	task := domain.Task{Id: input.Id, Title: input.Title, Description: input.Description, UserId: 1}
+	task := domain.Task{Id: input.Id, Title: input.Title, Description: input.Description, UserId: userID}
 	if err := n.Tasks.Update(ctx, task); err != nil {
 		return err
 	}
@@ -70,10 +83,14 @@ func (n *TaskUseCase) Update(ctx context.Context, input UpdateTask) error {
 }
 
 func (n *TaskUseCase) Delete(ctx context.Context, id int64) error {
+	userID, ok := ctx.Value("userID").(int64)
+	if !ok || userID == 0 {
+		return errors.New("Неверный userID")
+	}
 	if id < 1 {
 		return errors.New("ID не может быть меньше 1")
 	}
-	err := n.Tasks.Delete(ctx, id, 1)
+	err := n.Tasks.Delete(ctx, id, userID)
 	if err != nil {
 		return err
 	}

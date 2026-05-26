@@ -65,7 +65,7 @@ func main() {
 	userUseCase := usecase.NewAuthUseCase(userRepo, hasher, tokenManager)
 
 	// Создаем транспортный слой
-	mux := myhttp.NewRouter(taskUseCase, userUseCase)
+	mux := myhttp.NewRouter(taskUseCase, userUseCase, tokenManager)
 
 	log.Println("Сервер запущен на порту: " + cfg.SRV.Port)
 	err = http.ListenAndServe(":"+cfg.SRV.Port, mux)

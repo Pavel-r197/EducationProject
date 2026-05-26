@@ -32,6 +32,7 @@ go.work.sum
 data
 
 #templates styles
+web
 css
 images
 js

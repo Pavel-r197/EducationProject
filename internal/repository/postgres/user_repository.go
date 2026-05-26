@@ -14,6 +14,8 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	return &UserRepository{db: db}
 }
 
+// TODO: добавить проверку, существует ли пользователь, запретить повторную регистрацию с одним email
+
 func (u *UserRepository) Create(ctx context.Context, user *domain.User) error {
 	model := toUserModel(*user)
 	if err := u.db.WithContext(ctx).Create(&model).Error; err != nil {

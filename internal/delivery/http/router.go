@@ -1,6 +1,7 @@
 package http
 
 import (
+	"EducationProject/internal/domain"
 	"EducationProject/internal/usecase"
 	"net/http"
 )
@@ -9,16 +10,17 @@ import (
 //	TaskService usecase.TaskService
 //}
 
-func NewRouter(t usecase.TaskService, u usecase.UserService) http.Handler {
+func NewRouter(t usecase.TaskService, u usecase.UserService, tokenManager domain.TokenManager) http.Handler {
 	mux := http.NewServeMux()
 	taskHandler := NewTaskHandler(t)
 	userHandler := NewUserHandler(u)
+	auth := AuthMiddleware(tokenManager)
 
 	// Задачи
-	mux.HandleFunc("POST /api/tasks", taskHandler.Create)
-	mux.HandleFunc("GET /api/task/show/{id}", taskHandler.GetById)
-	mux.HandleFunc("POST /api/task/update/{id}", taskHandler.Update)
-	mux.HandleFunc("DELETE /api/task/delete/{id}", taskHandler.Delete)
+	mux.Handle("POST /api/tasks", Chain(http.HandlerFunc(taskHandler.Create), auth))
+	mux.Handle("GET /api/task/show/{id}", Chain(http.HandlerFunc(taskHandler.GetById), auth))
+	mux.Handle("POST /api/task/update/{id}", Chain(http.HandlerFunc(taskHandler.Update), auth))
+	mux.Handle("DELETE /api/task/delete/{id}", Chain(http.HandlerFunc(taskHandler.Delete), auth))
 
 	// Пользователи
 	mux.HandleFunc("POST /api/signup", userHandler.SignUp)

@@ -50,7 +50,7 @@ func (t *TaskHandler) Create(w http.ResponseWriter, r *http.Request) {
 func (t *TaskHandler) GetById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
-		res.WriteJSONError(w, http.StatusBadRequest, "Id должно быть числом")
+		res.WriteJSONError(w, http.StatusBadRequest, "ID должно быть числом")
 		return
 	}
 	task, err := t.u.GetById(r.Context(), int64(id))
@@ -63,6 +63,12 @@ func (t *TaskHandler) GetById(w http.ResponseWriter, r *http.Request) {
 
 func (t *TaskHandler) Update(w http.ResponseWriter, r *http.Request) {
 	// TO-DO: переписать структуру, чтобы получали id из параметра пути как в 51 строке
+	//id, err := strconv.Atoi(r.PathValue("id"))
+	//if err != nil {
+	//	res.WriteJSONError(w, http.StatusBadRequest, "ID должно быть числом")
+	//	return
+	//}
+
 	request := struct {
 		Id          int64  `json:"id"`
 		Title       string `json:"title"`
