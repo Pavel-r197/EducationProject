@@ -1,11 +1,8 @@
 package config
 
 import (
-	"EducationProject/internal/domain"
 	"fmt"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"log"
 	"os"
 )
@@ -37,7 +34,7 @@ func (dbc DbConfig) GetDsn() string {
 func New() *Config {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Ошибка загрузки .env файла")
+		log.Println("Ошибка загрузки .env файла")
 	}
 
 	return &Config{SRV: ServerConfig{Port: getEnv("SERVER_PORT", "8080")},
@@ -60,21 +57,4 @@ func getEnv(key, defaultValue string) string {
 		return defaultValue
 	}
 	return s
-}
-
-func OpenDb(dsn string) *gorm.DB {
-
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return db
-}
-
-func AutoMigrate(db *gorm.DB) {
-	if err := db.AutoMigrate(&domain.Task{}, &domain.User{}); err != nil {
-		log.Fatal(err)
-	}
-
 }

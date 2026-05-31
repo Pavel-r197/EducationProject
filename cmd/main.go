@@ -1,10 +1,10 @@
 package main
 
 import (
+	"EducationProject/internal/adapter/postgres/gorm"
 	"EducationProject/internal/config"
 	myhttp "EducationProject/internal/delivery/http"
 	"EducationProject/internal/repository/cryptography"
-	"EducationProject/internal/repository/postgres"
 	"EducationProject/internal/usecase"
 	"fmt"
 	"log"
@@ -12,22 +12,6 @@ import (
 	"strconv"
 	"time"
 )
-
-//type MySting string
-//
-//func (m MySting) TestFunc () {
-//	fmt.Println("TestFunc ok")
-//}
-//
-//type MyFunc func (int, int)
-//
-//func (m MyFunc) TestFunc () {
-//	fmt.Println("TestFunc ok 2")
-//}
-//
-//func MyNewFunc (a, b int) {
-//	fmt.Println("MyNewFunc")
-//}
 
 func main() {
 	// Получаем конфигурацию
@@ -38,14 +22,14 @@ func main() {
 	log.Println("Получена конфигурация cfg")
 
 	// Подключаемся к базе данных
-	db := config.OpenDb(cfg.DB.GetDsn())
+	db := postgres.OpenDb(cfg.DB.GetDsn())
 	if db == nil {
 		fmt.Println("Ошибка подключения к базе данных")
 	}
 	log.Println("Подключение к базе данных установлено")
 
 	// Выполняем автомиграцию
-	config.AutoMigrate(db)
+	postgres.AutoMigrate(db)
 	log.Println("Автомиграция выполнена")
 
 	bycryptCost, err := strconv.Atoi(cfg.BYCRYPTCOST)
