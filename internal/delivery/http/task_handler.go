@@ -68,9 +68,14 @@ func (t *TaskHandler) Update(w http.ResponseWriter, r *http.Request) {
 	//	res.WriteJSONError(w, http.StatusBadRequest, "ID должно быть числом")
 	//	return
 	//}
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id < 1 {
+		res.WriteJSONError(w, http.StatusBadRequest, "ID должно быть числом")
+		return
+	}
 
 	request := struct {
-		Id          int64  `json:"id"`
 		Title       string `json:"title"`
 		Description string `json:"description"`
 	}{}
@@ -78,12 +83,12 @@ func (t *TaskHandler) Update(w http.ResponseWriter, r *http.Request) {
 		res.WriteJSONError(w, http.StatusBadRequest, "Не валидный JSON")
 		return
 	}
-	task := usecase.UpdateTask{Id: request.Id, Title: request.Title, Description: request.Description}
+	task := usecase.UpdateTask{Id: int64(id), Title: request.Title, Description: request.Description}
 	if err := t.u.Update(r.Context(), task); err != nil {
 		res.WriteJSONError(w, http.StatusInternalServerError, "Не получилось обновить запись")
 		return
 	}
-	msg := fmt.Sprintf("Задача %d обновлена", request.Id)
+	msg := fmt.Sprintf("Задача %d обновлена", int64(id))
 	res.WriteJSONResponse(w, http.StatusOK, map[string]string{"msg": msg})
 }
 

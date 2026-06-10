@@ -4,7 +4,6 @@ import (
 	"EducationProject/internal/domain"
 	"context"
 	"database/sql"
-	"errors"
 )
 
 type TaskRepository struct {
@@ -64,7 +63,7 @@ func (t *TaskRepository) Delete(ctx context.Context, id, UserId int64) error {
     WHERE id = $1 AND user_id = $2;`
 	err := t.db.QueryRowContext(ctx, query, id, UserId).Scan()
 	if err != nil {
-		return errors.New("Ошибка удаления задачи")
+		return domain.ErrTaskDelete
 	}
 	return nil
 }

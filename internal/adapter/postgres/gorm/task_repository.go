@@ -3,6 +3,8 @@ package postgres
 import (
 	"EducationProject/internal/domain"
 	"context"
+	"errors"
+	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -28,7 +30,10 @@ func (t *TaskRepository) GetById(ctx context.Context, id, UserID int64) (*domain
 	// Получаем id задачи и возвращаем задачу по id, если не найдена, возвращаем ошибку
 	var task taskModel
 	if err := t.db.WithContext(ctx).Where("id= ? and user_id= ?", id, UserID).First(&task).Error; err != nil {
-		return nil, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, domain.ErrNotFound
+		}
+		return nil, fmt.Errorf("select task: %w", err)
 	}
 	domainTask := toDomainTask(task)
 	return &domainTask, nil

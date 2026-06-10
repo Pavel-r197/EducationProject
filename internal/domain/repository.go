@@ -2,8 +2,6 @@ package domain
 
 import "context"
 
-// TODO: добавить функцию удаления и изменения заметок (delete, update)
-
 type TaskRepository interface {
 	Create(ctx context.Context, task *Task) error
 	GetById(ctx context.Context, id, userId int64) (*Task, error)
@@ -15,7 +13,8 @@ type TaskRepository interface {
 
 type UserRepository interface {
 	Create(ctx context.Context, user *User) error
+	GetById(ctx context.Context, id int64) (*User, error)
 	GetByEmail(ctx context.Context, email string) (*User, error)
-	//Update()
+	Update(ctx context.Context, user User) error
 	//Delete()
 }

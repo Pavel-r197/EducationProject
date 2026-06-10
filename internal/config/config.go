@@ -26,6 +26,7 @@ type DbConfig struct {
 	SslMode  string
 }
 
+// Возвращает DSN как строку
 func (dbc DbConfig) GetDsn() string {
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=%v", dbc.Host, dbc.User, dbc.Password, dbc.DbName, dbc.Port, dbc.SslMode)
 	return dsn

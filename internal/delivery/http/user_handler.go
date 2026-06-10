@@ -32,7 +32,6 @@ func NewUserHandler(u usecase.UserService) *UserHandler {
 
 func (h *UserHandler) SignUp(w http.ResponseWriter, r *http.Request) {
 	var request signUpRequest
-	//TODO: обработать ошибку, воспользоваться res.go
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		res.WriteJSONError(w, http.StatusBadRequest, "Не валидный JSON")
 		return

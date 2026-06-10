@@ -33,6 +33,7 @@ func NewAuthUseCase(u domain.UserRepository, h domain.PasswordHasher, t domain.T
 }
 
 func (u AuthUseCase) SignUp(ctx context.Context, input SignUpInput) error {
+	input.Email = normalizeEmail(input.Email)
 	ok := emailValidator(input.Email)
 	if !ok {
 		return domain.ErrInvalidEmail
@@ -62,6 +63,7 @@ func (u AuthUseCase) SignUp(ctx context.Context, input SignUpInput) error {
 //TODO: вернуть токен
 
 func (u AuthUseCase) Login(ctx context.Context, input LoginInput) (domain.AuthToken, error) {
+	input.Email = normalizeEmail(input.Email)
 	ok := emailValidator(input.Email)
 	if !ok {
 		return domain.AuthToken{}, domain.ErrInvalidEmail
@@ -108,4 +110,9 @@ func passwordValidator(password string) error {
 		return domain.ErrMaxPassLength
 	}
 	return nil
+}
+
+func normalizeEmail(email string) string {
+	trimEmail := strings.TrimSpace(email)
+	return strings.ToLower(trimEmail)
 }
