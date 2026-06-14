@@ -1,6 +1,4 @@
--- TODO реализовать миграцию --
-
-CREATE TABLE if not EXIST users (
+CREATE TABLE IF NOT EXIST users (
     id BIGSERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -13,7 +11,7 @@ CREATE TABLE if not EXIST users (
 
 CREATE UNIQUE INDEX users_email_unique_idx ON users (email);
 
-CREATE TABLE If NOT EXIST tasks (
+CREATE TABLE IF NOT EXIST tasks (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
