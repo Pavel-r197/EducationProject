@@ -50,5 +50,5 @@ func (u *UserRepository) GetByEmail(ctx context.Context, email string) (*domain.
 }
 
 //func (u *UserRepository) Update(ctx context.Context, user User) error {
-//
+//    return nil
 //}

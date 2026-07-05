@@ -1,15 +1,19 @@
 package main
 
 import (
+	"EducationProject/internal/adapter/postgres/migrations"
 	"EducationProject/internal/adapter/postgres/stdsql"
 	"EducationProject/internal/config"
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"time"
 )
 
 func main() {
+	direction := flag.String("direction", "up", "up or down")
+	flag.Parse()
 	//Получаем конфигурацию
 	cfg := config.New()
 	if cfg == nil {
@@ -28,5 +32,19 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*1)
 	defer cancel()
+	switch *direction {
+	case "up":
+		if err := migrations.UP(ctx, db); err != nil {
+			log.Fatal(err)
+		}
+		log.Println("Миграции up успешно применены")
+	case "down":
+		if err := migrations.DOWN(ctx, db); err != nil {
+			log.Fatal(err)
+		}
+		log.Println("Миграции down успешно применены")
 
+	default:
+		log.Fatal("Непонятное направление миграции")
+	}
 }

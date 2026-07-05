@@ -2,7 +2,11 @@ package migrations
 
 import (
 	"context"
+	"crypto"
+	"crypto/sha256"
 	"database/sql"
+	"embed"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -10,6 +14,20 @@ import (
 	"strconv"
 	"strings"
 )
+
+const createSchemeMigrations = `
+CREATE TABLE IF NOT EXISTS scheme_migrations (
+    version BIGINT PRIMARY KEY,
+    name TEXT NOT NULL,
+    checksum TEXT NOT NULL,
+    applied_at timestamptz NOT NULL DEFAULT NOW()
+)
+`
+
+const deleteSchemeMigrations = ``
+
+//go:embed sql/*.sql
+var sqlfiles embed.FS
 
 type migration struct {
 	Version  int64
@@ -22,10 +40,35 @@ func UP(ctx context.Context, db *sql.DB) error {
 	if db == nil {
 		return errors.New("Ошибка миграции, подключение отсутствует")
 	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	if _, err := db.ExecContext(ctx, createSchemeMigrations); err != nil {
+		return fmt.Errorf("Create scheme migrations table: %w", err)
+	}
+	migrations, err := loadSQLMigration(sqlfiles) {
+		if err != nil{
+			return err
+		}
+	}
 
 }
 
 func DOWN(ctx context.Context, db *sql.DB) error {
+	if db == nil {
+		return errors.New("Ошибка миграции, подключение отсутствует")
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	if _, err := db.ExecContext(ctx, deleteSchemeMigrations); err != nil {
+		return fmt.Errorf("Delete scheme migrations table: %w", err)
+	}
+	migrations, err := loadSQLMigration(sqlfiles) {
+		if err != nil{
+			return err
+		}
+	}
 
 }
 
@@ -59,7 +102,12 @@ func loadSQLMigration(source fs.FS) ([]migration, error) {
 			return nil, fmt.Errorf("Migration %q is empty", value.Name())
 		}
 		//дописать рассчитать хэш, добавить в мапу версию
+		checkSum := calculateCheckSun(str)
+		versions[version] = value.Name()
+		m := migration{Version: version, Name: name, SQL: str, CheckSum: checkSum}
+		result = append(result, m)
 	}
+	return result, err
 }
 
 // Преобразует файл 000001_initial_scheme.sql в версию 1 и имя initial_scheme
@@ -75,4 +123,9 @@ func parseFileName(filename string) (int64, string, error) {
 		return 0, "", fmt.Errorf("Invalid migration filename %q", filename)
 	}
 	return version, name, nil
+}
+
+func calculateCheckSun(sqltext string) string {
+	sum := sha256.Sum256([]byte(sqltext))
+	return hex.EncodeToString(sum[:])
 }
