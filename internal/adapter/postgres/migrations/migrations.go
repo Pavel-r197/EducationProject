@@ -51,7 +51,19 @@ func UP(ctx context.Context, db *sql.DB) error {
 			return err
 		}
 	}
-
+	applied, err := loadAppliedMigrations(ctx, db)
+	if err != nil {
+		return err
+	}
+	for _, item := range migrations {
+		if checksum, ok := applied[item.Version]; ok {
+			if item.CheckSum != checksum {
+				return fmt.Errorf("Migration %d checksum mismatch", item.Version)
+			}
+		}
+		continue
+	}
+    // осталось выполнить миграции, остановились тут, будем открывать транзакцию и выплнять sql запрос и вставлять в схему миграции наше новое значение и комитить.
 }
 
 func DOWN(ctx context.Context, db *sql.DB) error {
@@ -101,7 +113,6 @@ func loadSQLMigration(source fs.FS) ([]migration, error) {
 		if str == "" {
 			return nil, fmt.Errorf("Migration %q is empty", value.Name())
 		}
-		//дописать рассчитать хэш, добавить в мапу версию
 		checkSum := calculateCheckSun(str)
 		versions[version] = value.Name()
 		m := migration{Version: version, Name: name, SQL: str, CheckSum: checkSum}
@@ -128,4 +139,26 @@ func parseFileName(filename string) (int64, string, error) {
 func calculateCheckSun(sqltext string) string {
 	sum := sha256.Sum256([]byte(sqltext))
 	return hex.EncodeToString(sum[:])
+}
+
+func loadAppliedMigrations (ctx context.Context, db *sql.DB) (map[int64]string, error) {
+	q := "SELECT version, checksum FROM scheme_migrations"
+	rows, err := db.QueryContext(ctx, q)
+	if err != nil {
+		return nil, fmt.Errorf("Load applied migrations: %w", err)
+	}
+	defer rows.Close()
+	applied := make(map[int64]string)
+	for rows.Next() {
+		var version int64
+		var checksum string
+		if err := rows.Scan(&version, &checksum); err != nil {
+			return nil, fmt.Errorf("Scan applied migrations: %w", err)
+		}
+		applied[version] = checksum
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("Iterate applied migrations: %w", err)
+	}
+	return applied, nil
 }

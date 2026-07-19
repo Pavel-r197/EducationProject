@@ -31,9 +31,12 @@ go.work.sum
 #Postgres
 data
 
-#templates styles
+#templates and styles
+*.tmpl
 web
 css
+*.css
 images
 js
+*.js
 
