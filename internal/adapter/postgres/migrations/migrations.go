@@ -97,6 +97,7 @@ func DOWN(ctx context.Context, db *sql.DB) error {
 		}
 	}
    // сделать по аналогии с up
+   //
 }
 
 // Читает sql файл из файловой системы
