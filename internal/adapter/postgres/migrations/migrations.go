@@ -46,10 +46,9 @@ func UP(ctx context.Context, db *sql.DB) error {
 	if _, err := db.ExecContext(ctx, createSchemeMigrations); err != nil {
 		return fmt.Errorf("Create scheme migrations table: %w", err)
 	}
-	migrations, err := loadSQLMigration(sqlfiles) {
-		if err != nil{
-			return err
-		}
+	migrations, err := loadSQLMigration(sqlfiles)
+	if err != nil {
+		return err
 	}
 	applied, err := loadAppliedMigrations(ctx, db)
 	if err != nil {
@@ -60,10 +59,26 @@ func UP(ctx context.Context, db *sql.DB) error {
 			if item.CheckSum != checksum {
 				return fmt.Errorf("Migration %d checksum mismatch", item.Version)
 			}
+			continue
 		}
-		continue
+		// осталось выполнить миграции, остановились тут, будем открывать транзакцию и выплнять sql запрос и вставлять в схему миграции наше новое значение и комитить.
+		tx, err := db.BeginTx(ctx, nil)
+		if err != nil {
+			return fmt.Errorf("BegIn Migration: %d:%w", item.Version, err)
+		}
+		if _, err := tx.ExecContext(ctx, item.SQL); err != nil {
+			tx.Rollback()
+			return fmt.Errorf("Apply migration %d %s:%w", item.Version, item.Name, err)
+		}
+		if _, err := tx.ExecContext(ctx,`INSERT INTO scheme_migrations (version, name, checksum) values ($1, $2, $3)`, item.Version, item.Name, item.CheckSum); err != nil {
+			tx.Rollback()
+			return fmt.Errorf("Save migration %d, %s:%w", item.Version, item.Name, err)
+		}
+		if err := tx.Commit(); err != nil {
+			return fmt.Errorf("Commit migration %d, %s:%w", item.Version, item.Name, item.CheckSum)
+		}
 	}
-    // осталось выполнить миграции, остановились тут, будем открывать транзакцию и выплнять sql запрос и вставлять в схему миграции наше новое значение и комитить.
+	return nil
 }
 
 func DOWN(ctx context.Context, db *sql.DB) error {
@@ -81,7 +96,7 @@ func DOWN(ctx context.Context, db *sql.DB) error {
 			return err
 		}
 	}
-
+   // сделать по аналогии с up
 }
 
 // Читает sql файл из файловой системы
