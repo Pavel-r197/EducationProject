@@ -2,7 +2,6 @@ package migrations
 
 import (
 	"context"
-	"crypto"
 	"crypto/sha256"
 	"database/sql"
 	"embed"
@@ -61,7 +60,6 @@ func UP(ctx context.Context, db *sql.DB) error {
 			}
 			continue
 		}
-		// осталось выполнить миграции, остановились тут, будем открывать транзакцию и выплнять sql запрос и вставлять в схему миграции наше новое значение и комитить.
 		tx, err := db.BeginTx(ctx, nil)
 		if err != nil {
 			return fmt.Errorf("BegIn Migration: %d:%w", item.Version, err)
@@ -70,7 +68,7 @@ func UP(ctx context.Context, db *sql.DB) error {
 			tx.Rollback()
 			return fmt.Errorf("Apply migration %d %s:%w", item.Version, item.Name, err)
 		}
-		if _, err := tx.ExecContext(ctx,`INSERT INTO scheme_migrations (version, name, checksum) values ($1, $2, $3)`, item.Version, item.Name, item.CheckSum); err != nil {
+		if _, err := tx.ExecContext(ctx, `INSERT INTO scheme_migrations (version, name, checksum) values ($1, $2, $3)`, item.Version, item.Name, item.CheckSum); err != nil {
 			tx.Rollback()
 			return fmt.Errorf("Save migration %d, %s:%w", item.Version, item.Name, err)
 		}
@@ -88,16 +86,39 @@ func DOWN(ctx context.Context, db *sql.DB) error {
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	if _, err := db.ExecContext(ctx, deleteSchemeMigrations); err != nil {
-		return fmt.Errorf("Delete scheme migrations table: %w", err)
+	//if _, err := db.ExecContext(ctx, deleteSchemeMigrations); err != nil {
+	//	return fmt.Errorf("Delete scheme migrations table: %w", err)
+	//}
+	// [migration, migration, migration]
+	// migration = Version, Name, SQL, CheckSum
+	migrations, err := loadSQLMigration(sqlfiles)
+	if err != nil {
+		return err
 	}
-	migrations, err := loadSQLMigration(sqlfiles) {
-		if err != nil{
-			return err
+	applied, err := loadAppliedMigrations(ctx, db)
+	if err != nil {
+		return err
+	}
+	// byversion = {}
+	byversion := make(map[int64]migration)
+	for _, item := range migrations {
+		// {версия:migration}
+		// byversion {1:}
+		byversion[item.Version] = item
+	}
+	versions := make([]int64, 0, len(applied))
+	// {1: sql script}
+	for version, checksum := range applied {
+		item, ok := byversion[version]
+		if !ok {
+			return fmt.Errorf("Примененная миграция отсутствует в sql файлах %d", version)
 		}
+		if checksum != item.CheckSum {
+			return fmt.Errorf("Хэши не совпадают")
+		}
+
 	}
-   // сделать по аналогии с up
-   //
+
 }
 
 // Читает sql файл из файловой системы
@@ -157,7 +178,7 @@ func calculateCheckSun(sqltext string) string {
 	return hex.EncodeToString(sum[:])
 }
 
-func loadAppliedMigrations (ctx context.Context, db *sql.DB) (map[int64]string, error) {
+func loadAppliedMigrations(ctx context.Context, db *sql.DB) (map[int64]string, error) {
 	q := "SELECT version, checksum FROM scheme_migrations"
 	rows, err := db.QueryContext(ctx, q)
 	if err != nil {
